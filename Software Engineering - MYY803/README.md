@@ -2,7 +2,7 @@
 
 This course focuses on issues related to software lifecycle in general and to the individual phases that constitute the software lifecycle: requirements (elicitation, analysis, documentation, quality), design (architecture and technical design, documentation, quality, architectural styles), implementation, testing (unit, integration, system testing), delivery (user training, documentation).
 
-# Project Description
+# Project Description (Diploma Projects Management Web Application)
 
 This project is a web-based application developed in Java that enables students to browse available diploma thesis subjects offered by professors, apply for subjects they are interested in, and track their application status. Professors can create, edit, and delete diploma thesis subjects, review applications submitted by students, assign subjects based on different strategies, and evaluate the final outcomes through a grading system.
 
