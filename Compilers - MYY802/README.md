@@ -2,5 +2,6 @@
 
 Introduction to compiler design and implementation. Lexical analysis. Syntax analysis, syntax directed compiling. Semantic analysis. Symbol tables and memory management. Intermediate code generation. Final code generation. Code optimization.
 
-# Project Description
+# Project Description (Development of a Compiler for the CutePy Programming Language)
 
+This project focuses on the development of a complete compiler for the CutePy programming language, implemented entirely in Python. The compiler handles all major phases of compilation, including lexical analysis, syntax analysis, intermediate code generation, and translation into RISC-V assembly code. The structure of the compiler is modular, organized into distinct components that correspond to each stage of the compilation process. Lexical analysis tokenizes the source code, syntax analysis verifies the grammatical structure based on CutePy’s grammar rules, intermediate code generation translates high-level constructs into lower-level representations, and final code generation produces executable RISC-V assembly instructions. Testing played an important role in the development process, with a dedicated set of unit tests created to verify the correctness and reliability of each module. This approach ensures that each component operates independently and integrates seamlessly into the complete compilation pipeline. The project highlights strong skills in compiler construction, modular programming, and software testing, demonstrating the ability to build a working compiler from scratch with Python.
