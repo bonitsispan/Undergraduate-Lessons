@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- Required meta tags -->
+
+  <!-- Set the Character set for the page -->
+  <meta charset="utf-8">
+
+  <!-- Let the page adapt to client device -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Link to external resource (css, search, etc.) -->
+  <!-- Link to Bootstrap CSS in this case -->
+  <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
+
+  <title> Subjects </title>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h3>My available subjects</h3>
+  <hr>
+
+  <!-- Add a button -->
+  <a th:href="@{/professor/showFormForAddSubject(testModelAttr=${test})}"
+     class="btn btn-primary btn-sm mb-3">
+    Add Subject
+  </a>
+
+
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th>Subject id</th>
+      <th>Title</th>
+      <th>Objectives</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="tempSubject : ${subjects}">
+
+      <td th:text="${tempSubject.id}" />
+      <td th:text="${tempSubject.title}" />
+      <td th:text="${tempSubject.objectives}" />
+
+      <td>
+        <!-- Add "update" button/link -->
+        <a th:href="@{/professor/showFormForUpdateSubject(subjectId=${tempSubject.id})}"
+           class="btn btn-secondary btn-sm">
+          Update
+        </a>
+
+        <!-- Add "update" button/link -->
+        <a th:href="@{/professor/getListApplications(subjectId=${tempSubject.id})}"
+           class="btn btn-info btn-sm">
+          Applications
+        </a>
+
+        <!-- Add "delete" button/link -->
+        <a th:href="@{/professor/deleteSubject(subjectId=${tempSubject.id})}"
+           class="btn btn-danger btn-sm"
+           onclick="if (!(confirm('Are you sure you want to delete this subject?'))) return false">
+          Delete
+        </a>
+
+        <!-- Add a button -->
+        <a th:href="@{/professor/showFormForAssignSubject(subjectId=${tempSubject.id})}"
+           class="btn btn-primary btn-sm">
+          Assign Subject
+        </a>
+
+      </td>
+
+
+    </tr>
+    </tbody>
+  </table>
+  <a th:href="@{/professor/getProfessorMainMenu}">Back to Main menu</a>
+
+  <br> <br> <hr> <br> <br>
+
+  <p>
+    <a th:href="@{/logout}" class="btn btn-danger btn-sm mb-3">Logout</a>
+  </p>
+
+</div>
+
+</body>
+</html>
+
+
+

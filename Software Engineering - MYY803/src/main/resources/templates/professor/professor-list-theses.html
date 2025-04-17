@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- Required meta tags -->
+
+  <!-- Set the Character set for the page -->
+  <meta charset="utf-8">
+
+  <!-- Let the page adapt to client device -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Link to external resource (css, search, etc.) -->
+  <!-- Link to Bootstrap CSS in this case -->
+  <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
+
+  <title> Thesis </title>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h3>My assigned thesis</h3>
+  <hr>
+
+
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th>Thesis id</th>
+      <th>Topic</th>
+      <th>Implementation grade</th>
+      <th>Report grade</th>
+      <th>Presentation grade</th>
+      <th>Final grade</th>
+      <th>Student full name</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="tempThesis : ${theses}">
+
+      <td th:text="${tempThesis.id}" />
+      <td th:text="${tempThesis.topic}" />
+      <td th:text="${tempThesis.implementationGrade}" />
+      <td th:text="${tempThesis.reportGrade}" />
+      <td th:text="${tempThesis.presentationGrade}" />
+      <td th:text="${tempThesis.finalGrade}" />
+      <td th:text="${tempThesis.studentFullName}" />
+
+
+      <td>
+        <!-- Add "update" button/link -->
+        <a th:href="@{/professor/addThesisGrades(thesisId=${tempThesis.id})}"
+           class="btn btn-primary btn-sm">
+          Add grades
+        </a>
+
+        <!-- Add "delete" button/link -->
+        <a th:href="@{/professor/deleteThesis(thesisId=${tempThesis.id})}"
+           class="btn btn-danger btn-sm"
+           onclick="if (!(confirm('Are you sure you want to delete this subject?'))) return false">
+          Delete
+        </a>
+
+      </td>
+
+
+    </tr>
+    </tbody>
+  </table>
+
+  <a th:href="@{/professor/getProfessorMainMenu}">Back to Main menu</a>
+
+  <br> <br> <hr> <br> <br>
+
+  <p>
+    <a th:href="@{/logout}" class="btn btn-danger btn-sm mb-3">Logout</a>
+  </p>
+
+</div>
+
+</body>
+</html>
+
+
+

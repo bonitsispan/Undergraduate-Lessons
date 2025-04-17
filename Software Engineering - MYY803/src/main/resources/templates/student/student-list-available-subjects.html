@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+
+    <!-- Set the Character set for the page -->
+    <meta charset="utf-8">
+
+    <!-- Let the page adapt to client device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Link to external resource (css, search, etc.) -->
+    <!-- Link to Bootstrap CSS in this case -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
+    <title> Subjects </title>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h3> Available subjects </h3>
+    <hr>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Subject id</th>
+            <th>Title</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempSubject : ${availableSubjects}">
+
+            <td th:text="${tempSubject.id}" />
+            <td th:text="${tempSubject.title}" />
+
+            <td>
+                <!-- Add "update" button/link -->
+                <a th:href="@{/student/getSubjectInformation(subjectId=${tempSubject.id})}"
+                   class="btn btn-info btn-sm">
+                    Subject's information
+                </a>
+
+                <!-- Add "update" button/link -->
+                <a th:href="@{/student/applyToSubject(subjectId=${tempSubject.id})}"
+                   class="btn btn-primary btn-sm">
+                    Apply
+                </a>
+
+            </td>
+
+
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/student/getStudentMainMenu}">Back to Main menu</a>
+
+    <br> <br> <hr> <br> <br>
+
+    <p>
+        <a th:href="@{/logout}" class="btn btn-danger btn-sm mb-3">Logout</a>
+    </p>
+
+</div>
+
+</body>
+</html>
+
+
+

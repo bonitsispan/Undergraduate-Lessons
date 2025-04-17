@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Professor Dashboard</title>
+  <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-8 text-center">
+      <h2>Welcome to Professor's main menu</h2>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-8 text-center">
+      <a th:href="@{/professor/listProfessorSubjects}" class="btn btn-primary btn-sm mb-3 mr-3">My Available Subjects</a>
+      <a th:href="@{/professor/listProfessorThesis}" class="btn btn-primary btn-sm mb-3 mr-3">My Assigned Theses</a>
+      <a th:href="@{/professor/FormOfProfessorInformation}" class="btn btn-secondary btn-sm mb-3">Set personal information</a>
+    </div>
+  </div>
+  <hr>
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-8 text-center">
+      <a th:href="@{/logout}" class="btn btn-danger btn-sm">Logout</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

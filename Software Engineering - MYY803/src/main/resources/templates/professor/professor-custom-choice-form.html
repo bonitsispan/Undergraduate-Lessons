@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
+  <title>Professor User Data</title>
+
+</head>
+<body>
+
+<div class="container">
+  <h1>Custom Strategy</h1>
+  <br>
+  <br>
+  <hr>
+
+  <form action="#" th:action="@{/professor/strategyCustom}" method="post">
+    <div class="form-group">
+      <label for="fewestCoursesLimit">Fewest Courses Limit:</label>
+      <input type="number" step="1" min="0" max="50" class="form-control" id="fewestCoursesLimit" name="fewestCoursesLimit" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bestAvgGradeLimit">Best Average Grade Limit:</label>
+      <input type="number" step="0.01" min="5.0" max="10.0" class="form-control" id="bestAvgGradeLimit" name="bestAvgGradeLimit" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+
+</body>
+</html>

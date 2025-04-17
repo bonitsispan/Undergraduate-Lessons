@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
+  <title>Professor User Data</title>
+</head>
+<body>
+<div class="container">
+  <h1>Professor Registration</h1>
+  <br>
+  <br>
+  <hr>
+  <form action="#" th:action="@{/saveProfessor}" method="post" th:object="${newProfessor}" onsubmit="return validateForm()">
+    <div class="mb4">
+      <label class="form-label">Full name:</label>
+      <input type="text" class="form-control" th:field="*{fullName}" /><br/>
+    </div>
+    <div class="mb4">
+      <label class="form-label">Speciality:</label>
+      <input type="text" class="form-control" th:field="*{speciality}" /><br/>
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+  </form>
+</div>
+
+<script>
+    function validateForm() {
+      var fullName = document.forms[0]["fullName"].value;
+      var speciality = document.forms[0]["speciality"].value;
+      if (fullName == "" || speciality == "") {
+        alert("Please fill out all fields.");
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>

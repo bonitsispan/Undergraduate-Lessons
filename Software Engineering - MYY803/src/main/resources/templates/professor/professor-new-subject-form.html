@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
+
+  <title>Save Subject</title>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h3>Professor Directory</h3>
+  <hr>
+
+  <p class="h4 mb-4">Save new subject </p>
+
+  <form th:action="@{/professor/saveNewSubject}"
+        th:object="${newSubject}" method="POST" onsubmit="return validateForm()">
+
+    <!-- Add hidden form field to handle update -->
+
+    <input type="text" th:field="*{title}"
+           class="form-control mb-4 col-4" placeholder="Title">
+
+    <input type="text" th:field="*{objectives}"
+           class="form-control mb-4 col-4" placeholder="Objectives">
+
+    <button type="submit" class="btn btn-info col-2">Save</button>
+
+  </form>
+
+  <hr>
+  <a th:href="@{/professor/listProfessorSubjects}">Back to Subjects List</a>
+
+</div>
+
+<script>
+    function validateForm() {
+      var title = document.forms[0]["title"].value;
+      var objectives = document.forms[0]["objectives"].value;
+      if (title == "" || objectives == "") {
+        alert("Please fill out all fields.");
+        return false;
+      }
+    }
+  </script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
