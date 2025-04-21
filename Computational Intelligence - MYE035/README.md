@@ -1,1 +1,7 @@
+# Lesson Descreption
 
+Introduction to computational intelligence, biological neural networks, introduction to artificial neural networks, learning from examples, the perceptron, the multilayer perceptron, RBF networks, learning and generalization, competitive learning, the LVQ algorithm, self-organizing maps, associative memories (the Hopfield network), neurofuzzy systems.
+
+# Project Descreption (Classification and Clustering with MLP and K-Means Algorithms)
+
+This project involves the implementation of machine learning algorithms to solve classification and clustering problems on synthetic datasets. For the classification task, a Multi-Layer Perceptron (MLP) neural network was developed with three hidden layers, supporting different activation functions (logistic, tanh, and ReLU). The network was trained using the gradient descent algorithm with mini-batch updates, and its performance was evaluated based on its generalization ability on a validation dataset. For the clustering task, the K-Means algorithm was implemented to partition datasets into different numbers of clusters (M = 3, 6, 9, 12). The program performs multiple runs with different random initializations and selects the clustering result with the lowest error. The project includes the creation of synthetic datasets for classification and clustering , evaluation of model performance under different configurations, and visualization of classification and clustering results.
