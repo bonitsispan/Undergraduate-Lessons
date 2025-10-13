@@ -1,0 +1,107 @@
+v0) Our new project:
+    Attributes:
+        1) Opens a simulation window.
+        2) Loads fragment and vertex shader.
+        3) Renders flat skin mesh with texture.
+    Problem:
+        1) Can render bg image but not at the correct size.
+        2) Can't load multiple instances of cube objects whose faces and uv's are unknow to us in order to map correctly the texture
+    Compile: g++ Simulation_v1.cpp Mesh/Mesh.cpp Shaders/Shader.cpp Auxiliary_Functions.cpp -o exec -lglfw -lGLEW -lGL -std=c++11 -Wall -I./Mesh -I./Shaders
+    FAILED!
+
+
+v1) Using glut like in 2D simulations
+    Attributes:
+        1) Opens a simulation window.
+        2) Initializes skin mesh and Loads lancet mesh from objects.
+        3) Renders the 2 meshes with texture.
+        4) Can move and rotate the lancet.
+        5) Load dermis and hypodermis skin meshes with texture below epidermis.
+        5) Force caclulation ???
+    Problem:
+        1) Have to find a fitting texture for the side faces
+        2) Maybe a more fitting texture for dermis and epidermis too
+
+
+v2) Enhanced version with comments from teacher on 12/11/2024
+    Attributes:
+        1) Opens a 1400x1200px simulation window.
+        2) Frame rate is regulated and set at 60 fps. Separated from the force calculation loop regulator.
+        3) Initializes epidermis mesh and the respective inner VertexQuad structures.
+        4) Sets camera component view at the center of the mesh.
+        5) Renders front face and side faces (internal and external) of epidermis mesh.
+        6) Initialize lancet mesh at a certain position and orientation from the skin mesh in order to match the ee(tsd) of the haptic mechanism in real life.
+        7) Load and render metallic texture on lancet mesh.
+        8) Move the lancet with the keyboard arrows. Left and right with left and right arrows and forward and backward with up and down arrows.
+        9) Use keyboard to orbit the camera around the scene horizontally (a,d) and vertically (w,s).
+        10) Detect the closest VertexQuad from the lancetTip. If found:
+            1) Apply some pressure on z-axis and deform the epidermis mesh.
+            2) If the SPLIT_THRESHOLD is exceded the lancet breaks into the epidermis, revealing a small gap.
+            3) The lancet then can continue cutting horizontally or go even deeper.
+        11) Calculate the whole blade vertices and use them and not only the tip to cut the mesh horizontally.
+        12) Calculate the Fz when applying pressure on the epidermis until reaching the SPLIT_THRESHOLD.
+        13) Calculate the Fx when lancet cuts horizontally on the left or on the right after breaking into the epidermis mesh.
+        14) The force calculation and vertex displacement takes place every 5 ms. Separated from the fps regulator.
+        15) Fx & Fz are saved in a log file which can be used for plotting the forces over time.
+            Plot_Diagram.py file does the plotting. 
+        16) Added tool bar menu:
+            1) Activate and deactivate lancet.
+            2) Lock and unlock camera orbitting.
+            3) Show and hide help box.
+        17) Created client and server structs that use sockets:
+            1) Client is used to log to a server through a port and sent data to a server.
+            2) Server awaits a client to log to it and receive its messages. It parses the force message and also counts the messages received (equal to the messages sent).
+        18) The simulation now utilizes a client that sents the force data every 5 ms (200Hz) as soon as it is calculated.
+        19) Created a simple Mechanism.cpp file that sets up a server to listen to the simulation's client.
+            It also opens up a window that shows the forces and the received message count.
+        20) Added:
+            1) A client to the mechanism so as to send position messages to the simulation.
+            2) A server to the simulation so as to listen and receive the position messages from the mechanism.
+        21) Connected the simulation with the mechanismat the lab.
+        22) Moved the lancet closer to the mesh at 0.25 m instead of 0.75 m.
+        23) Changed the Mechanism.cpp to send position data based on the arrows we press. The simulation now only receives the coords.
+        24) Modified direction calculation for the lancet. It's now done using the coords and not which arrows are pressed.
+        25) Made a Blood.cpp that simulated a blood trail with texture when clicking the left mouse button.
+        26) Added:
+            1) Top tool bar that shows metrics.
+            2) Cut box button that shows and hides the cut box of which lines we have to cut close to.
+        27) Optimized mechnanism code a little bit.
+            1) Added comments, more variables whose values can be changed easily without going into the code and grouped code by functionality.
+            2) Added more fields which values to be rendered. Useful as we found out the pace of sent and rcvd mesgs does not match while they're supposed to work on the same frequency.
+        28) Applying optimizations to fix achieve the desired frequency.
+            Eliminating the bottleneck of 13 ms and reducing the total time of the updateSimulationScene() to <= 5 ms:
+            1) Measured all functions and code parts called inside the simulation function. Blade calculation and finding the closest quad take most of the time. The rest of the code takes minimal time to complete.
+            2) Applied parallelization to calculateBladeVerticesInWorldSpace(...) and reduced the time from 3+ ms to around 0.8+ ms.
+            3) Step 2 was not enough, so we cached the blade vertices once and then applied only the transformations, avoiding recalculations and reducing the time-cost to a fixed value of less than 0.5 ms 
+            4) Applied parallelization to findClosestQuadToBlade(...). Reduced time, but there are still spikes in tim-cost.
+            5) Separated the force logging-sending to a different thread and reduced time from 0.9-1.1 ms to 0.04-0.08 ms.
+            6) Trying to filter the vertexQuads and only take a sub-group in which we will search for the closest each time. Only filter again when the x.coord of the lancet will have changed.
+            7) Cached also the lancetTip in the same way as the blade vaertices.
+            8) Partitioned the mesh using an indexed grid, thus making it easier to search among the filtered quads and find the closest one.
+        29) Added:
+            1) Fps counter in top toolbar
+        30) Changed TIME_STEP = 12 ms to 5 ms and modified the splitting functions to match the optical effect and the simulation pace.
+        SUCCESS! THE SIMULATION NOW WORKS AS INTENDED!
+    Problems:
+        1) Deformed region reverts back to it's original coords, but only when we move the lancet left or right as soon as we've pressed the region (not a big deal).
+
+v3) Attributes:
+    1) Added:
+        1) Blood particles when a quad is split.
+    2) Enhanced cutting logic by correcting the state transition.
+       Used pointers to calculate the real quads and not copies.
+    3) Fixed problem 1 of the previous version. Now the deformation happens as expected.
+    4) 
+
+    Problems:
+        1) When creating the blood effect, too many blood particles are created for no reason. This puts a huge load on the whole simulation.
+
+
+
+
+How to compile: 
+1) Once for the graphic driver setup: export LIBGL_ALWAYS_SOFTWARE=1 
+2) Compile: g++ -std=c++17 Simulation_v4.cpp -o simulation -lGL -lGLU -lglut -lSOIL -lpthread -fopenmp
+            g++ Mechanism.cpp -o mechanism -lglut -lGL -pthread
+            g++ Blood.cpp -o blood -lGL -lGLU -lglut -lSOIL
+3) Run in 2 different cmds: ./mechanism  &  ./simulation
